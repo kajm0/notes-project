@@ -1,0 +1,78 @@
+# Java / Maven / Spring Boot
+*.class
+*.jar
+*.war
+*.ear
+*.log
+target/
+.mvn/
+mvnw
+mvnw.cmd
+.DS_Store
+
+# Node / NPM / Yarn
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log*
+dist/
+build/
+
+# React Native / Expo
+.expo/
+.expo-shared/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+android/
+ios/
+
+# TypeScript
+*.tsbuildinfo
+*.js.map
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+.project
+.classpath
+.settings/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Misc
+.cache/
+temp/
+tmp/
+
