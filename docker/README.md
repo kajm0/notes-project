@@ -5,7 +5,6 @@ Configuration Docker Compose pour l'application Notes.
 ## Services
 
 - **postgres** : PostgreSQL 16 (port 5432)
-- **redis** : Redis 7 pour le cache BFF (port 6379)
 - **backend** : API Spring Boot (port 8080)
 - **bff** : Backend-For-Frontend NestJS (port 4000)
 - **frontend** : Application web React (port 8081)
@@ -55,7 +54,6 @@ Pour la production, utilisez un fichier `.env` externe.
 - **4000** : BFF NestJS (http://localhost:4000)
 - **8080** : Backend Spring Boot (http://localhost:8080)
 - **5432** : PostgreSQL
-- **6379** : Redis
 
 ## Accès aux services
 
@@ -66,6 +64,5 @@ Pour la production, utilisez un fichier `.env` externe.
 ## Volumes persistants
 
 - `postgres_data` : Données PostgreSQL
-- `redis_data` : Données Redis
 
 

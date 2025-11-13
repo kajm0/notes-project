@@ -20,23 +20,6 @@ services:
     networks:
       - notes-network
 
-  redis:
-    image: redis:7-alpine
-    container_name: notes-redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    command: redis-server --appendonly yes
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - notes-network
-
   backend:
     build:
       context: ../backend-spring
@@ -49,15 +32,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/notes_db
       SPRING_DATASOURCE_USERNAME: notes_user
       SPRING_DATASOURCE_PASSWORD: notes_pass
-      SPRING_REDIS_HOST: redis
-      SPRING_REDIS_PORT: 6379
       JWT_SECRET: JwtSecretKeyMustBeAtLeast64CharactersLong!UseForDockerOnly_ChangeMeNow!!
       JWT_EXPIRATION: 3600000
       JWT_REFRESH_EXPIRATION: 86400000
     depends_on:
       postgres:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
@@ -80,13 +59,9 @@ services:
       NODE_ENV: production
       PORT: 4000
       BACKEND_API_URL: http://backend:8080
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
       JWT_SECRET: JwtSecretKeyMustBeAtLeast64CharactersLong!UseForDockerOnly_ChangeMeNow!!
     depends_on:
       backend:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:4000/health || exit 1"]
@@ -123,8 +98,6 @@ networks:
 
 volumes:
   postgres_data:
-    driver: local
-  redis_data:
     driver: local
 
 

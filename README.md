@@ -13,7 +13,7 @@ Application multi-plateforme avec authentification JWT, partage de notes, et syn
        ▼                  ▼
 ┌─────────────────────────────────┐
 │        BFF - NestJS (4000)       │
-│  • Cache (Redis)                │
+│  • Cache (mémoire)              │
 │  • Rate Limiting                │
 └─────────────────┬───────────────┘
                   │
@@ -271,7 +271,7 @@ docker-compose up -d
 > - `-d` : Lance les services en arrière-plan (mode "detached"), vous pouvez continuer à utiliser votre terminal
 
 **La première fois**, cette commande peut prendre plusieurs minutes car Docker doit :
-- Télécharger les images nécessaires (PostgreSQL, Redis, etc.)
+- Télécharger les images nécessaires (PostgreSQL, etc.)
 - Construire les images de l'application
 - Démarrer tous les conteneurs
 
@@ -287,7 +287,6 @@ docker-compose ps
 
 Vous devriez voir tous les services avec le statut "Up" :
 - `notes-postgres` (PostgreSQL)
-- `notes-redis` (Redis)
 - `notes-backend` (Backend Spring Boot)
 - `notes-bff` (BFF NestJS)
 - `notes-frontend` (Frontend Web)

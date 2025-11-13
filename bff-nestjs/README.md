@@ -4,9 +4,9 @@ Backend-For-Frontend qui sert d'intermédiaire entre le frontend React et le bac
 
 ## Valeur ajoutée
 
-### 1. Cache intelligent (Redis)
-- Notes list : 5 min TTL
-- Note détail : 2 min TTL
+### 1. Cache intelligent (mémoire)
+- Notes list : cache en mémoire avec TTL configurable
+- Note détail : cache en mémoire avec TTL configurable
 - Invalidation automatique sur mutations
 
 ### 2. Composition d'API
@@ -25,7 +25,7 @@ Backend-For-Frontend qui sert d'intermédiaire entre le frontend React et le bac
 
 - NestJS 10
 - TypeScript
-- Redis (cache)
+- Cache en mémoire (cache-manager)
 - Axios (HTTP client)
 - Throttler (rate limiting)
 - Swagger (documentation)
@@ -62,8 +62,6 @@ Variables d'environnement :
 
 - `PORT` : Port du serveur (défaut: 4000)
 - `BACKEND_API_URL` : URL du backend Spring Boot
-- `REDIS_HOST` : Hôte Redis
-- `REDIS_PORT` : Port Redis
 - `JWT_SECRET` : Clé JWT (doit correspondre au backend)
 
 ## Endpoints
@@ -74,8 +72,8 @@ Variables d'environnement :
 - `POST /auth/refresh`
 
 ### Notes (`/api/notes`)
-- `GET /notes` (cached 5min)
-- `GET /notes/:id` (cached 2min)
+- `GET /notes` (cache en mémoire)
+- `GET /notes/:id` (cache en mémoire)
 - `POST /notes`
 - `PUT /notes/:id`
 - `DELETE /notes/:id`
@@ -114,10 +112,13 @@ PostgreSQL
 
 ## Stratégie de cache
 
-| Endpoint | TTL | Invalidation |
-|----------|-----|--------------|
-| GET /notes | 5min | Sur POST/PUT/DELETE notes |
-| GET /notes/:id | 2min | Sur PUT/DELETE note |
+Le cache utilise la mémoire locale (cache-manager) pour améliorer les performances.
+Les données sont mises en cache automatiquement et invalidées lors des opérations de modification.
+
+| Endpoint | Cache | Invalidation |
+|----------|-------|--------------|
+| GET /notes | Mémoire | Sur POST/PUT/DELETE notes |
+| GET /notes/:id | Mémoire | Sur PUT/DELETE note |
 
 ## Tests
 

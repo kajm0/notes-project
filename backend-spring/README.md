@@ -24,17 +24,17 @@ API REST pour la gestion de notes collaboratives avec authentification JWT.
 ### Installation
 
 ```bash
-./mvnw clean install
+mvn clean install
 ```
 
 ### Scripts
 
 ```bash
 # Développement
-./mvnw spring-boot:run
+mvn spring-boot:run
 
 # Tests
-./mvnw test
+mvn test
 
 # Build Docker
 docker build -t notes-backend .
@@ -87,7 +87,7 @@ Swagger UI disponible : http://localhost:8080/swagger-ui.html
 ## Tests
 
 ```bash
-./mvnw test
+mvn test
 ```
 
 ## Compte de démonstration
@@ -135,7 +135,7 @@ Migrations Flyway versionnées dans `src/main/resources/db/migration/`.
 
 Pour réinitialiser la DB :
 ```bash
-./mvnw flyway:clean flyway:migrate
+mvn flyway:clean flyway:migrate
 ```
 
 
