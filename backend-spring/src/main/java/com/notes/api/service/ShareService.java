@@ -37,18 +37,18 @@ public class ShareService {
                 .orElseThrow(() -> new ResourceNotFoundException("Note not found"));
 
         if (!note.getOwner().getId().equals(ownerId)) {
-            throw new ForbiddenException("You don't have permission to share this note");
+            throw new ForbiddenException("Vous ne pouvez partager que vos propres notes");
         }
 
         User sharedWithUser = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + request.getEmail()));
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable: " + request.getEmail()));
 
         if (sharedWithUser.getId().equals(ownerId)) {
-            throw new BadRequestException("Cannot share note with yourself");
+            throw new BadRequestException("Vous ne pouvez pas partager une note avec vous-même");
         }
 
         if (shareRepository.existsByNoteAndSharedWithUser(note, sharedWithUser)) {
-            throw new BadRequestException("Note already shared with this user");
+            throw new BadRequestException("Cette note est déjà partagée avec cet utilisateur");
         }
 
         Share share = Share.builder()
@@ -74,9 +74,11 @@ public class ShareService {
             throw new ForbiddenException("You don't have permission to create a public link for this note");
         }
 
-        publicLinkRepository.findByNoteId(noteId).ifPresent(existingLink -> {
-            throw new BadRequestException("Public link already exists for this note");
-        });
+        // Return existing link if it already exists
+        var existingLink = publicLinkRepository.findByNoteId(noteId);
+        if (existingLink.isPresent()) {
+            return mapToPublicLinkResponse(existingLink.get());
+        }
 
         String urlToken = generateUrlToken();
 
@@ -104,7 +106,17 @@ public class ShareService {
             throw new ForbiddenException("You don't have permission to revoke this share");
         }
 
+        Note note = share.getNote();
         shareRepository.delete(share);
+
+        // Si la note était SHARED et qu'il ne reste plus de partages actifs, la rendre PRIVATE
+        if (note.getVisibility() == Note.Visibility.SHARED) {
+            var remainingShares = shareRepository.findByNote(note);
+            if (remainingShares.isEmpty()) {
+                note.setVisibility(Note.Visibility.PRIVATE);
+                noteRepository.save(note);
+            }
+        }
     }
 
     @Transactional
@@ -121,6 +133,18 @@ public class ShareService {
         Note note = publicLink.getNote();
         note.setVisibility(Note.Visibility.PRIVATE);
         noteRepository.save(note);
+    }
+
+    @Transactional(readOnly = true)
+    public int getSharedUsersCount(UUID ownerId, UUID noteId) {
+        Note note = noteRepository.findById(noteId)
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found"));
+
+        if (!note.getOwner().getId().equals(ownerId)) {
+            throw new ForbiddenException("You don't have permission to access this note's share information");
+        }
+
+        return shareRepository.findByNote(note).size();
     }
 
     @Transactional(readOnly = true)
@@ -152,4 +176,5 @@ public class ShareService {
                 .build();
     }
 }
+
 

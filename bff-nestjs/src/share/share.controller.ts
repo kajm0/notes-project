@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Headers, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Headers, Param, Post } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { ShareService } from './share.service';
 
@@ -44,5 +44,15 @@ export class ShareController {
   ) {
     return this.shareService.revokePublicLink(linkId, auth);
   }
+
+  @Get(':noteId/share/count')
+  @ApiOperation({ summary: 'Get number of users with access to a shared note' })
+  async getSharedUsersCount(
+    @Param('noteId') noteId: string,
+    @Headers('authorization') auth: string,
+  ) {
+    return this.shareService.getSharedUsersCount(noteId, auth);
+  }
 }
+
 

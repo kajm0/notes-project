@@ -19,3 +19,4 @@ public interface PublicLinkRepository extends JpaRepository<PublicLink, UUID> {
     Optional<PublicLink> findByNoteId(UUID noteId);
 }
 
+

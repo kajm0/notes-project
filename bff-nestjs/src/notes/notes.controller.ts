@@ -11,8 +11,6 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @Get()
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(300000)
   @ApiOperation({ summary: 'Get all notes with filters' })
   async getNotes(
     @Query() query: any,
@@ -22,8 +20,6 @@ export class NotesController {
   }
 
   @Get(':id')
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(120000)
   @ApiOperation({ summary: 'Get note by ID' })
   async getNoteById(
     @Param('id') id: string,
@@ -61,4 +57,5 @@ export class NotesController {
     return this.notesService.deleteNote(id, auth);
   }
 }
+
 

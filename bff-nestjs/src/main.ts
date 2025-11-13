@@ -7,8 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:8081'],
+    origin: true, // Autoriser toutes les origines (compatible avec credentials)
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   });
 
   app.useGlobalPipes(
@@ -32,4 +34,5 @@ async function bootstrap() {
   console.log(`BFF running on http://localhost:${port}`);
 }
 bootstrap();
+
 

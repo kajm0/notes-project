@@ -78,13 +78,23 @@ src/
 └── App.tsx            # Router + Routes
 ```
 
-## Tests
+## Scripts
 
 ```bash
+# Développement
+npm run dev
+
+# Build production
+npm run build
+
+# Tests
 npm test
+npm run test:e2e
 ```
 
 ## Comptes de démonstration
 
-- Email : demo@notes.app
-- Password : Demo123!
+Un compte démo est créé automatiquement au démarrage du backend :
+
+- **Email** : `demo@example.com`
+- **Password** : `password123`

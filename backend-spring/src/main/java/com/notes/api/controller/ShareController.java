@@ -15,6 +15,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+/**
+ * REST Controller for Note sharing operations.
+ * 
+ * Handles:
+ * - Sharing notes with specific users (read-only access)
+ * - Creating public links for notes
+ * - Revoking shares and public links
+ * 
+ * Only note owners can share or revoke access to their notes.
+ */
 @RestController
 @RequestMapping("/api/v1/notes")
 @RequiredArgsConstructor
@@ -63,5 +73,15 @@ public class ShareController {
         shareService.revokePublicLink(currentUser.getId(), linkId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{noteId}/share/count")
+    @Operation(summary = "Get number of users with access to a shared note")
+    public ResponseEntity<Integer> getSharedUsersCount(
+            @AuthenticationPrincipal UserPrincipal currentUser,
+            @PathVariable UUID noteId
+    ) {
+        return ResponseEntity.ok(shareService.getSharedUsersCount(currentUser.getId(), noteId));
+    }
 }
+
 

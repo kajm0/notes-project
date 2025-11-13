@@ -15,3 +15,4 @@ public interface TagRepository extends JpaRepository<Tag, UUID> {
     boolean existsByLabel(String label);
 }
 
+

@@ -16,7 +16,8 @@ import { BackendModule } from './backend/backend.module';
     }),
     CacheModule.register({
       isGlobal: true,
-      ttl: 300000,
+      ttl: 1000,
+      max: 10,
     }),
     ThrottlerModule.forRoot([{
       ttl: 60000,

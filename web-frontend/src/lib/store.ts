@@ -12,15 +12,24 @@ interface AuthState {
   logout: () => void;
 }
 
+const storedToken = localStorage.getItem('token');
+const storedUser = localStorage.getItem('user');
+
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  token: localStorage.getItem('token'),
+  user: storedUser && storedToken ? JSON.parse(storedUser) : null,
+  token: storedToken,
   setAuth: (user, token) => {
+    if (!user || !token) {
+      console.error('Invalid auth data');
+      return;
+    }
     localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
     set({ user, token });
   },
   logout: () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
+    sessionStorage.clear();
     set({ user: null, token: null });
   },
 }));
@@ -54,4 +63,5 @@ export const useNotesStore = create<NotesState>((set) => ({
     notes: state.notes.filter((n) => n.id !== id),
   })),
 }));
+
 

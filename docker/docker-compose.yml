@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   postgres:
@@ -52,7 +51,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: notes_pass
       SPRING_REDIS_HOST: redis
       SPRING_REDIS_PORT: 6379
-      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+      JWT_SECRET: JwtSecretKeyMustBeAtLeast64CharactersLong!UseForDockerOnly_ChangeMeNow!!
       JWT_EXPIRATION: 3600000
       JWT_REFRESH_EXPIRATION: 86400000
     depends_on:
@@ -61,7 +60,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -83,14 +82,14 @@ services:
       BACKEND_API_URL: http://backend:8080
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+      JWT_SECRET: JwtSecretKeyMustBeAtLeast64CharactersLong!UseForDockerOnly_ChangeMeNow!!
     depends_on:
       backend:
         condition: service_healthy
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:4000/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -107,11 +106,11 @@ services:
     container_name: notes-frontend
     restart: unless-stopped
     ports:
-      - "3000:80"
+      - "8081:80"
     depends_on:
       - bff
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -127,4 +126,5 @@ volumes:
     driver: local
   redis_data:
     driver: local
+
 

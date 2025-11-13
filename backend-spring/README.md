@@ -19,18 +19,24 @@ API REST pour la gestion de notes collaboratives avec authentification JWT.
 - Maven 3.9+
 - PostgreSQL 16 (via Docker recommandé)
 
-## Installation
+## Setup
 
-### Avec Maven local
+### Installation
 
 ```bash
 ./mvnw clean install
-./mvnw spring-boot:run
 ```
 
-### Avec Docker
+### Scripts
 
 ```bash
+# Développement
+./mvnw spring-boot:run
+
+# Tests
+./mvnw test
+
+# Build Docker
 docker build -t notes-backend .
 docker run -p 8080:8080 notes-backend
 ```
@@ -83,12 +89,14 @@ Swagger UI disponible : http://localhost:8080/swagger-ui.html
 ./mvnw test
 ```
 
-## Comptes de démonstration
+## Compte de démonstration
 
-Des comptes sont créés automatiquement via Flyway (V2__seed_demo_data.sql) :
+Un compte démo est créé automatiquement au démarrage de l'application :
 
-- Email : `demo@notes.app` / Password : `Demo123!`
-- Email : `user@notes.app` / Password : `Demo123!`
+- **Email** : `demo@example.com`
+- **Mot de passe** : `password123`
+
+Ce compte est créé automatiquement par le composant `DataInitializer` si il n'existe pas déjà.
 
 ## Structure du projet
 
@@ -124,4 +132,5 @@ Pour réinitialiser la DB :
 ```bash
 ./mvnw flyway:clean flyway:migrate
 ```
+
 

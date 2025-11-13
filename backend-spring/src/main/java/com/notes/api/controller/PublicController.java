@@ -5,7 +5,6 @@ import com.notes.api.entity.Note;
 import com.notes.api.entity.Tag;
 import com.notes.api.service.ShareService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag as SwaggerTag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/p")
 @RequiredArgsConstructor
-@SwaggerTag(name = "Public", description = "Public note access endpoints")
+@io.swagger.v3.oas.annotations.tags.Tag(name = "Public", description = "Public note access endpoints")
 public class PublicController {
 
     private final ShareService shareService;

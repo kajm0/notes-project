@@ -23,3 +23,4 @@ HEALTHCHECK --interval=30s --timeout=3s CMD wget --no-verbose --tries=1 --spider
 
 CMD ["node", "dist/main.js"]
 
+

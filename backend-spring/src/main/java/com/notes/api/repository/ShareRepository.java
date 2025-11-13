@@ -22,3 +22,4 @@ public interface ShareRepository extends JpaRepository<Share, UUID> {
     boolean existsByNoteAndSharedWithUser(Note note, User user);
 }
 
+

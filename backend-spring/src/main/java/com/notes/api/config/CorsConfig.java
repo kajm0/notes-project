@@ -18,6 +18,7 @@ public class CorsConfig {
         configuration.setAllowedOrigins(Arrays.asList(
             "http://localhost:3000",
             "http://localhost:4000",
+            "http://localhost:5173",
             "http://localhost:8081"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -30,4 +31,5 @@ public class CorsConfig {
         return source;
     }
 }
+
 

@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { BackendService } from '../backend/backend.service';
 
 @Injectable()
 export class NotesService {
+  private readonly logger = new Logger(NotesService.name);
+
   constructor(private readonly backendService: BackendService) {}
 
   async getNotes(query: any, auth: string) {
@@ -25,4 +27,5 @@ export class NotesService {
     return this.backendService.delete(`/api/v1/notes/${id}`, { Authorization: auth });
   }
 }
+
 

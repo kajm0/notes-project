@@ -66,3 +66,4 @@ CREATE TABLE public_links (
 CREATE INDEX idx_public_links_url_token ON public_links(url_token);
 CREATE INDEX idx_public_links_note_id ON public_links(note_id);
 
+

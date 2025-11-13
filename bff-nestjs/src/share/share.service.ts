@@ -20,5 +20,10 @@ export class ShareService {
   async revokePublicLink(linkId: string, auth: string) {
     return this.backendService.delete(`/api/v1/notes/public-links/${linkId}`, { Authorization: auth });
   }
+
+  async getSharedUsersCount(noteId: string, auth: string) {
+    return this.backendService.get(`/api/v1/notes/${noteId}/share/count`, { Authorization: auth });
+  }
 }
+
 

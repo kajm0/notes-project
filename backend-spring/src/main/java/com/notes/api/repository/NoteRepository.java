@@ -18,7 +18,7 @@ public interface NoteRepository extends JpaRepository<Note, UUID> {
     Page<Note> findByOwner(User owner, Pageable pageable);
     
     @Query("SELECT n FROM Note n WHERE n.owner = :owner AND " +
-           "(:query IS NULL OR LOWER(n.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           "(:query IS NULL OR :query = '' OR LOWER(n.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
            "LOWER(n.contentMd) LIKE LOWER(CONCAT('%', :query, '%'))) AND " +
            "(:visibility IS NULL OR n.visibility = :visibility)")
     Page<Note> searchNotes(
@@ -40,5 +40,14 @@ public interface NoteRepository extends JpaRepository<Note, UUID> {
     @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END " +
            "FROM Share s WHERE s.note.id = :noteId AND s.sharedWithUser.id = :userId")
     boolean isNoteSharedWithUser(@Param("noteId") UUID noteId, @Param("userId") UUID userId);
+    
+    @Query("SELECT n FROM Note n WHERE n.visibility = 'PUBLIC' AND n.owner <> :currentUser AND " +
+           "(:query IS NULL OR :query = '' OR LOWER(n.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+           "LOWER(n.contentMd) LIKE LOWER(CONCAT('%', :query, '%')))")
+    Page<Note> findPublicNotes(
+        @Param("currentUser") User currentUser,
+        @Param("query") String query,
+        Pageable pageable
+    );
 }
 
