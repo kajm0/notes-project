@@ -7,7 +7,7 @@ Application multi-plateforme avec authentification JWT, partage de notes, et syn
 ```
 ┌──────────────┐   ┌──────────────┐
 │  Web React   │   │  Mobile RN   │
-│  (port 3000) │   │  (Expo Go)   │
+│  (port 8081) │   │  (Expo Go)   │
 └──────┬───────┘   └──────┬───────┘
        │                  │
        ▼                  ▼
@@ -30,7 +30,7 @@ Application multi-plateforme avec authentification JWT, partage de notes, et syn
 
 - **Docker** & **Docker Compose**
 - **Node.js** 20+ et **npm**
-- **Java 21** (pour développement backend)
+- **Java 17+** (pour développement backend)
 - **Expo CLI** (pour développement mobile)
 
 ## Démarrage Rapide

@@ -72,6 +72,7 @@ Variables d'environnement (voir `application.yml`) :
 
 - `POST /notes/{id}/share/user` : Partager avec un utilisateur
 - `POST /notes/{id}/share/public` : Créer un lien public
+- `GET /notes/{id}/share/count` : Récupérer le nombre d'utilisateurs partagés
 - `DELETE /shares/{shareId}` : Révoquer un partage
 - `DELETE /public-links/{linkId}` : Révoquer un lien public
 
@@ -91,12 +92,16 @@ Swagger UI disponible : http://localhost:8080/swagger-ui.html
 
 ## Compte de démonstration
 
-Un compte démo est créé automatiquement au démarrage de l'application :
+Un compte démo et des notes sont créés automatiquement au démarrage de l'application :
 
+**Compte utilisateur :**
 - **Email** : `demo@example.com`
 - **Mot de passe** : `password123`
 
-Ce compte est créé automatiquement par le composant `DataInitializer` si il n'existe pas déjà.
+**Notes par défaut :**
+- 3 notes privées sont automatiquement créées pour ce compte au premier démarrage
+
+Le compte et les notes sont créés automatiquement par le composant `DataInitializer` s'ils n'existent pas déjà.
 
 ## Structure du projet
 

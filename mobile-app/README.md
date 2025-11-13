@@ -140,7 +140,8 @@ mobile-app/
 │       └── edit.tsx       # Note create/edit screen
 ├── lib/
 │   ├── api.ts             # Axios configuration
-│   └── store.ts           # Zustand state management
+│   ├── store.ts           # Zustand state management
+│   └── offlineQueue.ts    # File d'opérations persistante pour mode offline
 ├── types/
 │   └── index.ts           # TypeScript types
 ├── app.json               # Expo configuration
@@ -164,6 +165,7 @@ mobile-app/
 - **Share Note**: On note detail, tap share FAB → share with user by email
 - **Public Link**: On note detail, tap link FAB → generate public link
 - **Delete Note**: On note detail, tap the delete FAB option (owner only)
+- **Change Visibility**: When editing, change from SHARED to PRIVATE shows confirmation dialog with affected users count
 - **Search**: Use the search bar to filter notes by title or content
 - **Filter by Visibility**: Use chips (All, Private, Shared, Public)
 - **Markdown Preview**: Toggle between Edit and Preview modes when creating/editing

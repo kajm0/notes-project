@@ -83,8 +83,12 @@ Variables d'environnement :
 ### Partage (`/api/notes`)
 - `POST /notes/:noteId/share/user`
 - `POST /notes/:noteId/share/public`
+- `GET /notes/:noteId/share/count` : Récupérer le nombre d'utilisateurs partagés
 - `DELETE /notes/shares/:shareId`
 - `DELETE /notes/public-links/:linkId`
+
+### Public (`/api/p`)
+- `GET /p/:token` : Accès public à une note (sans authentification)
 
 ## Documentation
 

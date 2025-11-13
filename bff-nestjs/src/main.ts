@@ -7,7 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: true, // Autoriser toutes les origines (compatible avec credentials)
+    origin: [
+      'http://localhost:3000',  // Frontend React dev
+      'http://localhost:5173',  // Vite dev server alternatif
+      'http://localhost:8081',  // Frontend React production (Nginx)
+      'http://127.0.0.1:8081',  // Frontend React production (Nginx) - alternative
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],

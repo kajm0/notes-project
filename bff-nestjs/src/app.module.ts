@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { NotesModule } from './notes/notes.module';
 import { ShareModule } from './share/share.module';
+import { PublicModule } from './public/public.module';
 import { BackendModule } from './backend/backend.module';
 
 @Module({
@@ -31,6 +32,7 @@ import { BackendModule } from './backend/backend.module';
     AuthModule,
     NotesModule,
     ShareModule,
+    PublicModule,
   ],
   controllers: [AppController],
 })

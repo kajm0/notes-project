@@ -25,7 +25,9 @@ npm install
 npm run dev
 ```
 
-Accès : http://localhost:3000
+Accès : http://localhost:3000 (mode développement)
+
+> **Note** : En production Docker, l'application est accessible sur le port 8081.
 
 ## Build production
 
@@ -54,11 +56,13 @@ Variable d'environnement :
 - Routes protégées
 
 ### Gestion de notes
-- Liste des notes
+- Liste des notes avec rafraîchissement automatique
 - Création avec éditeur Markdown
 - Prévisualisation en temps réel
 - Édition / Suppression
-- Support tags
+- Support tags et filtres
+- Partage avec utilisateurs et liens publics
+- Dialogue de confirmation pour changement SHARED → PRIVATE
 
 ### Interface
 - Responsive design
@@ -73,8 +77,11 @@ src/
 │   ├── api.ts         # Client Axios avec intercepteurs JWT
 │   └── store.ts       # Zustand stores (auth + notes)
 ├── pages/
-│   ├── Login.tsx      # Authentification
-│   └── Notes.tsx      # Gestion des notes
+│   ├── Auth.tsx       # Authentification (Login/Register)
+│   ├── NotesPage.tsx  # Gestion des notes
+│   └── PublicNote.tsx # Affichage des notes publiques
+├── styles/
+│   └── global.css     # Styles globaux
 └── App.tsx            # Router + Routes
 ```
 

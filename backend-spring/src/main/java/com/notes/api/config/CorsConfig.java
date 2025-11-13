@@ -16,10 +16,11 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3000",
-            "http://localhost:4000",
-            "http://localhost:5173",
-            "http://localhost:8081"
+            "http://localhost:3000",   // Frontend React dev
+            "http://localhost:4000",   // BFF NestJS
+            "http://localhost:5173",   // Vite dev server alternatif
+            "http://localhost:8081",   // Frontend React production (Nginx)
+            "http://127.0.0.1:8081"     // Frontend React production (Nginx) - alternative
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));

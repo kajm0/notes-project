@@ -27,7 +27,8 @@ export function PublicNote() {
 
   const loadPublicNote = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/p/${token}`);
+      const apiUrl = import.meta.env.VITE_BFF_URL || 'http://localhost:4000';
+      const response = await fetch(`${apiUrl}/api/p/${token}`);
       if (!response.ok) throw new Error('Note not found');
       const data = await response.json();
       setNote(data);
